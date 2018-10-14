@@ -18,7 +18,6 @@ public:
 		return next_node;
 	}
 	T retrieve() {
-
 		return element;
 	}
 };
@@ -44,10 +43,8 @@ public:
 		return (list_head->next_node == list_tail);
 	}
 	void push_front(T e) {
-		
-			list_head->next_node = new Node<T>(e, list_head, list_head->next());
-			list_head->next()->next()->prev_node = list_head->next();
-		
+		list_head->next_node = new Node<T>(e, list_head, list_head->next());
+		list_head->next()->next()->prev_node = list_head->next();
 	}
 	T front()
 	{
@@ -60,7 +57,10 @@ public:
 	}
 	T pop_front() {
 		if (empty()) return -1;
-
+		T pop = front();
+		list_head->next_node = list_head->next()->next_node;
+		list_head->next()->prev_node = list_head;
+		return pop;
 	}
 };
 
@@ -74,14 +74,16 @@ int main() {
 	list.push_front(2);
 	list.push_front(3);
 
-	cout << list.front() << endl;
-	cout << list.empty() << endl;
+	cout << list.front() << endl;		// 3
+	cout << list.empty() << endl;		// false
 
-	cout << list.back() << endl;
+	cout << list.back() << endl;		// 1
 
-	//cout << list.pop_front() << endl;
-	//cout << list.pop_front() << endl;
-
-	//cout << list.empty() << endl;
+	cout << list.pop_front() << endl;	// 3
+	cout << list.empty() << endl;		// false
+	cout << list.pop_front() << endl;	// 2
+	cout << list.empty() << endl;		// false
+	cout << list.pop_front() << endl;	// 1
+	cout << list.empty() << endl;		// true
 
 }
